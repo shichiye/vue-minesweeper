@@ -2,7 +2,8 @@
 import { isDev, toggleDev } from '~/composables'
 
 const play = new GamePlay(12, 12)
-const state = play.state
+useStorage('vuesweeper-state', play.state)
+const state = computed(() => play.board)
 </script>
 
 <template>
