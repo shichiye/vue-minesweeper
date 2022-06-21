@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { isDev, toggleDev } from '~/composables'
 
-const play = new GamePlay(12, 12)
+const play = new GamePlay(10, 10)
 useStorage('vuesweeper-state', play.state)
 const state = computed(() => play.board)
+
+watchEffect(() => {
+  play.checkGameState()
+})
 </script>
 
 <template>
