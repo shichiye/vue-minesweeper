@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { isDev, toggleDev } from '~/composables'
 
-const play = new GamePlay(10, 10)
+const play = new GamePlay(12, 12, 30)
 useStorage('vuesweeper-state', play.state)
 const state = computed(() => play.board)
+
+const minesCount = computed(() => {
+  return play.blocks.reduce((a, b) => a + (b.mine ? 1 : 0), 0)
+})
 
 watchEffect(() => {
   play.checkGameState()
@@ -28,6 +32,10 @@ watchEffect(() => {
           @contextmenu.prevent="play.onRightClick(block)"
         />
       </div>
+    </div>
+
+    <div>
+      Count: {{ minesCount }}
     </div>
 
     <div flex="~ gap-1" justify-center>
